@@ -1,0 +1,80 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #262320;
+  --color-surface: #ffffff;
+  --color-canvas: #f7f3ee;
+  --color-muted: #625b55;
+  --color-line: #ebe5dd;
+  --color-brand: #9a4632;
+  --color-brand-soft: #f7e8e1;
+  --color-ok: #23764d;
+  --color-ok-soft: #e2f2e8;
+  --color-warn: #a35a00;
+  --color-warn-soft: #fcefd9;
+  --color-bad: #b42318;
+  --color-bad-soft: #fde7e4;
+  --color-info: #255f9e;
+  --color-info-soft: #e5eef9;
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --animate-pop: pop 0.22s ease-out;
+  --animate-fade: fade 0.25s ease-out;
+
+  @keyframes pop {
+    from { opacity: 0; transform: translateY(8px) scale(0.98); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes fade {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: none; }
+  }
+}
+
+html, body { background: var(--color-canvas); color: var(--color-ink); }
+body { font-feature-settings: "tnum" 1; -webkit-tap-highlight-color: transparent; text-size-adjust: 100%; }
+
+@layer base {
+  /* Grid items may shrink below their content, so a wide table never pushes the page wider than the phone. */
+  .grid > * { min-width: 0; }
+}
+
+@layer components {
+.tbl { width: 100%; font-size: 0.875rem; border-collapse: separate; border-spacing: 0; }
+.tbl th { text-align: left; font-weight: 600; color: var(--color-muted); font-size: 0.75rem; padding: 0.7rem 0.85rem; border-bottom: 1px solid var(--color-line); background: #fcfaf7; white-space: nowrap; position: sticky; top: 0; }
+.tbl td { padding: 0.7rem 0.85rem; border-bottom: 1px solid var(--color-line); vertical-align: middle; }
+.tbl tbody tr { transition: background 0.12s; }
+.tbl tbody tr:hover td { background: #fcf8f4; }
+.tbl tbody tr:last-child td { border-bottom: none; }
+.tbl tfoot td { padding: 0.7rem 0.85rem; border-top: 1px solid var(--color-line); }
+.num, .tbl th.num, .tbl td.num { text-align: right; font-variant-numeric: tabular-nums; }
+
+.inp { width: 100%; border: 1px solid var(--color-line); background: white; border-radius: 0.65rem; padding: 0.55rem 0.8rem; font-size: 0.875rem; outline: none; transition: border-color 0.12s, box-shadow 0.12s; }
+.inp:hover { border-color: #d9d0c5; }
+.inp:focus { border-color: var(--color-brand); box-shadow: 0 0 0 3px var(--color-brand-soft); }
+.inp:disabled { background: #f4f0eb; color: var(--color-muted); }
+.inp::placeholder { color: #aaa29a; }
+
+/* ---------- Phones ---------- */
+.pb-safe { padding-bottom: env(safe-area-inset-bottom); }
+.scroll-x { overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+.scroll-x::-webkit-scrollbar { display: none; }
+
+/* Simple card list used instead of wide tables on small screens. */
+.mlist { display: grid; gap: 0.625rem; padding: 0.75rem; }
+.mlist > * { min-width: 0; }
+.mcard { display: block; border: 1px solid var(--color-line); border-radius: 0.9rem; background: var(--color-surface); padding: 0.85rem 0.95rem; }
+a.mcard:active, button.mcard:active { background: #fcf8f4; }
+
+@media (max-width: 639px) {
+  /* 16px text stops iPhones zooming in when a box is tapped; 44px is a comfortable finger target. */
+  .inp { font-size: 16px; min-height: 44px; }
+  .tbl th, .tbl td, .tbl tfoot td { padding-left: 0.55rem; padding-right: 0.55rem; }
+  .tbl th:first-child, .tbl td:first-child { padding-left: 0.9rem; }
+  .tbl th:last-child, .tbl td:last-child { padding-right: 0.9rem; }
+  select.inp { padding-right: 2rem; }
+}
+@media (max-width: 359px) {
+  /* The smallest phones: a little less space around table cells. */
+  .tbl th, .tbl td, .tbl tfoot td { padding-left: 0.4rem; padding-right: 0.4rem; }
+}
+}

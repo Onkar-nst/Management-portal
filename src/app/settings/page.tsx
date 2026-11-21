@@ -1,8 +1,10 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import { CircleCheck, Download, RotateCcw, Settings, ShieldCheck, Trash2, TriangleAlert, Upload } from "lucide-react";
+import { Check, CircleCheck, Download, Palette, RotateCcw, Settings, ShieldCheck, Trash2, TriangleAlert, Upload } from "lucide-react";
 import { useStore } from "@/lib/store";
 import { findDataProblems } from "@/lib/actions";
+import { applyTheme, getTheme, THEMES, type ThemeId } from "@/lib/theme";
+import { cn } from "@/lib/utils";
 import { Button, Card, Confirm, Field, PageHeader } from "@/components/ui";
 
 export default function SettingsPage() {
@@ -12,6 +14,13 @@ export default function SettingsPage() {
   const [health, setHealth] = useState<string[] | null>(null);
   const fileRef = useRef<HTMLInputElement>(null);
   useEffect(() => setS(data.settings), [data.settings]);
+  const [theme, setTheme] = useState<ThemeId>("indigo");
+  useEffect(() => setTheme(getTheme()), []);
+  const pickTheme = (id: ThemeId) => {
+    applyTheme(id);
+    setTheme(id);
+    toast(`Colours changed to ${THEMES.find((t) => t.id === id)!.name}.`);
+  };
 
   const save = () => {
     const r = updateSettings(s);
@@ -59,6 +68,33 @@ export default function SettingsPage() {
         </Card>
 
         <div className="space-y-4">
+          <Card title="Colours" icon={Palette}>
+            <p className="mb-3 text-sm text-muted">Pick the colours you like. It changes straight away and is remembered on this device.</p>
+            <div role="radiogroup" aria-label="Colour scheme" className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+              {THEMES.map((t) => (
+                <button
+                  key={t.id}
+                  type="button"
+                  role="radio"
+                  aria-checked={theme === t.id}
+                  onClick={() => pickTheme(t.id)}
+                  className={cn("flex items-center gap-3 rounded-xl border-2 p-2.5 text-left transition-colors", theme === t.id ? "border-brand bg-brand-soft/50" : "border-line hover:bg-hover")}
+                >
+                  <span className="flex shrink-0 overflow-hidden rounded-lg ring-1 ring-black/10" aria-hidden>
+                    <span className="h-9 w-5" style={{ background: t.brand }} />
+                    <span className="h-9 w-3" style={{ background: t.soft }} />
+                    <span className="h-9 w-3" style={{ background: t.canvas }} />
+                  </span>
+                  <span className="min-w-0 flex-1 leading-tight">
+                    <span className="block text-sm font-semibold">{t.name}{t.id === "indigo" && <span className="font-normal text-muted"> (default)</span>}</span>
+                    <span className="block text-xs text-muted">{t.feel}</span>
+                  </span>
+                  {theme === t.id && <Check size={17} className="shrink-0 text-brand" aria-hidden />}
+                </button>
+              ))}
+            </div>
+          </Card>
+
           <Card title="Your data">
             <p className="mb-4 text-sm text-muted">
               Everything is saved in this browser: {data.products.length} products, {data.sales.length} bills, {data.purchaseOrders.length} supplier orders and {data.movements.length} stock changes. Download a backup now and then to keep it safe.

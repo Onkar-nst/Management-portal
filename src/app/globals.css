@@ -1,13 +1,20 @@
 @import "tailwindcss";
 
 @theme {
-  --color-ink: #262320;
+  /* Default colour scheme: Indigo. Other schemes are below (html[data-theme=…]). */
+  --color-ink: #1d2030;
   --color-surface: #ffffff;
-  --color-canvas: #f7f3ee;
-  --color-muted: #625b55;
-  --color-line: #ebe5dd;
-  --color-brand: #9a4632;
-  --color-brand-soft: #f7e8e1;
+  --color-canvas: #f5f6fa;
+  --color-muted: #585d6e;
+  --color-line: #e3e5ee;
+  --color-line-strong: #cfd3e0;
+  --color-brand: #4f46e5;
+  --color-brand-soft: #ecebfd;
+  --color-head: #fafbfd;
+  --color-hover: #f7f8fc;
+  --color-disabled: #eff1f6;
+  --color-placeholder: #9aa0b2;
+  --color-shadow: rgba(30, 35, 60, 0.05);
   --color-ok: #23764d;
   --color-ok-soft: #e2f2e8;
   --color-warn: #a35a00;
@@ -30,6 +37,28 @@
   }
 }
 
+/* ---------- Colour schemes (chosen in Settings → Colours, saved per device) ---------- */
+html[data-theme="terracotta"] {
+  --color-ink: #262320; --color-canvas: #f7f3ee; --color-muted: #625b55; --color-line: #ebe5dd; --color-line-strong: #d9d0c5;
+  --color-brand: #9a4632; --color-brand-soft: #f7e8e1; --color-head: #fcfaf7; --color-hover: #fcf8f4;
+  --color-disabled: #f4f0eb; --color-placeholder: #aaa29a; --color-shadow: rgba(60, 40, 20, 0.05);
+}
+html[data-theme="teal"] {
+  --color-ink: #1b2725; --color-canvas: #f2f6f5; --color-muted: #53615e; --color-line: #dce7e4; --color-line-strong: #c9d8d4;
+  --color-brand: #0f766e; --color-brand-soft: #ddf1ee; --color-head: #f8fbfa; --color-hover: #f5f9f8;
+  --color-disabled: #edf3f1; --color-placeholder: #94a3a0; --color-shadow: rgba(20, 45, 40, 0.05);
+}
+html[data-theme="maroon"] {
+  --color-ink: #2a1f23; --color-canvas: #fbf6ee; --color-muted: #675a5d; --color-line: #ece2d2; --color-line-strong: #dccfba;
+  --color-brand: #8b1e3f; --color-brand-soft: #f8e4ea; --color-head: #fdfaf5; --color-hover: #fcf8f2;
+  --color-disabled: #f5efe4; --color-placeholder: #a99c9f; --color-shadow: rgba(60, 30, 30, 0.05);
+}
+html[data-theme="navy"] {
+  --color-ink: #111827; --color-canvas: #f5f6f8; --color-muted: #556070; --color-line: #e2e5eb; --color-line-strong: #cfd4dd;
+  --color-brand: #1e3a8a; --color-brand-soft: #e4eafa; --color-head: #fafbfc; --color-hover: #f7f8fa;
+  --color-disabled: #f0f2f5; --color-placeholder: #9aa3b0; --color-shadow: rgba(15, 25, 50, 0.05);
+}
+
 html, body { background: var(--color-canvas); color: var(--color-ink); }
 body { font-feature-settings: "tnum" 1; -webkit-tap-highlight-color: transparent; text-size-adjust: 100%; }
 
@@ -40,19 +69,19 @@ body { font-feature-settings: "tnum" 1; -webkit-tap-highlight-color: transparent
 
 @layer components {
 .tbl { width: 100%; font-size: 0.875rem; border-collapse: separate; border-spacing: 0; }
-.tbl th { text-align: left; font-weight: 600; color: var(--color-muted); font-size: 0.75rem; padding: 0.7rem 0.85rem; border-bottom: 1px solid var(--color-line); background: #fcfaf7; white-space: nowrap; position: sticky; top: 0; }
+.tbl th { text-align: left; font-weight: 600; color: var(--color-muted); font-size: 0.75rem; padding: 0.7rem 0.85rem; border-bottom: 1px solid var(--color-line); background: var(--color-head); white-space: nowrap; position: sticky; top: 0; }
 .tbl td { padding: 0.7rem 0.85rem; border-bottom: 1px solid var(--color-line); vertical-align: middle; }
 .tbl tbody tr { transition: background 0.12s; }
-.tbl tbody tr:hover td { background: #fcf8f4; }
+.tbl tbody tr:hover td { background: var(--color-hover); }
 .tbl tbody tr:last-child td { border-bottom: none; }
 .tbl tfoot td { padding: 0.7rem 0.85rem; border-top: 1px solid var(--color-line); }
 .num, .tbl th.num, .tbl td.num { text-align: right; font-variant-numeric: tabular-nums; }
 
 .inp { width: 100%; border: 1px solid var(--color-line); background: white; border-radius: 0.65rem; padding: 0.55rem 0.8rem; font-size: 0.875rem; outline: none; transition: border-color 0.12s, box-shadow 0.12s; }
-.inp:hover { border-color: #d9d0c5; }
+.inp:hover { border-color: var(--color-line-strong); }
 .inp:focus { border-color: var(--color-brand); box-shadow: 0 0 0 3px var(--color-brand-soft); }
-.inp:disabled { background: #f4f0eb; color: var(--color-muted); }
-.inp::placeholder { color: #aaa29a; }
+.inp:disabled { background: var(--color-disabled); color: var(--color-muted); }
+.inp::placeholder { color: var(--color-placeholder); }
 
 /* ---------- Phones ---------- */
 .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
@@ -63,7 +92,7 @@ body { font-feature-settings: "tnum" 1; -webkit-tap-highlight-color: transparent
 .mlist { display: grid; gap: 0.625rem; padding: 0.75rem; }
 .mlist > * { min-width: 0; }
 .mcard { display: block; border: 1px solid var(--color-line); border-radius: 0.9rem; background: var(--color-surface); padding: 0.85rem 0.95rem; }
-a.mcard:active, button.mcard:active { background: #fcf8f4; }
+a.mcard:active, button.mcard:active { background: var(--color-hover); }
 
 @media (max-width: 639px) {
   /* 16px text stops iPhones zooming in when a box is tapped; 44px is a comfortable finger target. */

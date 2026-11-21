@@ -27,7 +27,7 @@ export function PageHeader({ title, subtitle, actions, icon: Icon }: { title: Re
 
 export function Card({ title, actions, children, className, pad = true, subtitle, id, icon: Icon }: { title?: React.ReactNode; subtitle?: React.ReactNode; actions?: React.ReactNode; children: React.ReactNode; className?: string; pad?: boolean; id?: string; icon?: LucideIcon }) {
   return (
-    <section id={id} className={cn("rounded-2xl border border-line bg-surface shadow-[0_1px_2px_rgba(60,40,20,0.04)]", className)}>
+    <section id={id} className={cn("rounded-2xl border border-line bg-surface shadow-[0_1px_2px_var(--color-shadow)]", className)}>
       {(title || actions) && (
         <header className="flex items-center justify-between gap-2 border-b border-line px-5 py-3.5">
           <div>
@@ -50,7 +50,7 @@ const toneChip = { ok: "bg-ok-soft text-ok", warn: "bg-warn-soft text-warn", bad
 
 export function Stat({ label, value, hint, tone, icon, help }: { label: string; value: React.ReactNode; hint?: React.ReactNode; tone?: "ok" | "warn" | "bad" | "info"; icon?: React.ReactNode; help?: string }) {
   return (
-    <div className="rounded-2xl border border-line bg-surface p-3.5 shadow-[0_1px_2px_rgba(60,40,20,0.04)] sm:p-4">
+    <div className="rounded-2xl border border-line bg-surface p-3.5 shadow-[0_1px_2px_var(--color-shadow)] sm:p-4">
       <div className="flex items-start justify-between gap-2">
         <div className="flex items-center gap-1 text-[13px] font-medium text-muted">
           {label}

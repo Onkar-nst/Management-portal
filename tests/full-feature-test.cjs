@@ -865,12 +865,39 @@ const S = (name) => { section = name; console.log(`\n== ${name}`); };
       if (v.length) a11yPhone.push(`${p}: ${v.join(", ")}`);
     }
     check("No accessibility problems in the phone layout", a11yPhone.length === 0, a11yPhone.join(" || "));
+
+    S("23. Colour schemes");
+    await page.setViewport({ width: 1440, height: 900 });
+    await go("/settings");
+    const schemes = await page.$$eval('[role="radiogroup"][aria-label="Colour scheme"] [role="radio"]', (r) => r.map((x) => x.innerText.split("\n")[0].trim()));
+    check("Settings offers 5 colour schemes, Indigo is the default", schemes.length === 5 && (await page.evaluate(() => document.querySelector('[aria-label="Colour scheme"] [aria-checked="true"]').innerText.startsWith("Indigo"))) && (await page.evaluate(() => !document.documentElement.hasAttribute("data-theme"))), schemes.join(", "));
+    const brandOf = () => page.evaluate(() => getComputedStyle(document.documentElement).getPropertyValue("--color-brand").trim());
+    const indigoBrand = await brandOf();
+    await click("Teal", { within: '[aria-label="Colour scheme"]' });
+    check("Picking a scheme changes the colours straight away", (await page.evaluate(() => document.documentElement.getAttribute("data-theme"))) === "teal" && (await brandOf()) !== indigoBrand && (await page.$eval('meta[name="theme-color"]', (m) => m.content)) === "#0f766e");
+    await page.goto(BASE + "/reports", { waitUntil: "domcontentloaded" });
+    const beforeReact = await page.evaluate(() => document.documentElement.getAttribute("data-theme"));
+    await ready();
+    check("The choice is remembered and applied before the page draws (no colour flash)", beforeReact === "teal");
+    const themeA11y = [];
+    for (const t of ["indigo", "terracotta", "teal", "maroon", "navy"]) {
+      await page.evaluate((t) => localStorage.setItem("kapda-theme", t), t);
+      for (const p of ["/", "/pos", "/inventory", "/settings"]) {
+        await go(p);
+        const v = await axe();
+        if (v.length) themeA11y.push(`${t} ${p}: ${v.join(", ")}`);
+      }
+    }
+    check("Every colour scheme is easy to read (no contrast or accessibility problems)", themeA11y.length === 0, themeA11y.join(" || "));
+    await go("/settings");
+    await click("Indigo", { within: '[aria-label="Colour scheme"]' });
+    check("Switching back to the default clears the saved choice", (await page.evaluate(() => localStorage.getItem("kapda-theme"))) === null && !(await page.evaluate(() => document.documentElement.hasAttribute("data-theme"))));
   } catch (e) {
     check(`Test run crashed: ${e.message}`, false);
     await page.screenshot({ path: path.join(OUT, "crash.png") }).catch(() => {});
   }
 
-  S("23. Browser errors");
+  S("24. Browser errors");
   check("No JavaScript errors or failed requests anywhere", errors.length === 0, errors.slice(0, 5).join(" | "));
 
   const failed = results.filter((r) => !r.ok);

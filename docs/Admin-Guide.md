@@ -48,7 +48,7 @@ Each step happens on the page named in brackets; the counts update by themselves
 | **Customers** | Know your regulars | Add or edit customers (retail or wholesale); visits, money spent, last visit, pay-later amount to collect; tap a customer to see their bills; Call button on phones |
 | **Suppliers** | Know who you buy from | Add, edit or remove suppliers; phone and email; products, money spent with them, pieces on the way, payment days |
 | **Reports** | See how the business is doing | Plain-English summary; sales, cost, profit, discounts, GST; by category, size, channel, payment and brand; **What to reorder** (with how many); slow movers; stock value; period: 7, 30, 90 days or all; CSV |
-| **Settings** | Shop details and data | Your name, shop name, address, GSTIN, usual GST %; Download / Restore backup; **Check my data**; Bring back sample data; Start fresh |
+| **Settings** | Shop details and data | Your name, shop name, address, GSTIN, usual GST %; **Colours** (Indigo, Terracotta, Teal, Royal maroon, Navy); Download / Restore backup; **Check my data**; Bring back sample data; Start fresh |
 | **Help** | Learn the portal | The three everyday jobs, setup steps, "How do I…?" answers, glossary |
 
 ## How to do the common jobs

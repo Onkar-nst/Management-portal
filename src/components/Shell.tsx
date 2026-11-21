@@ -21,6 +21,7 @@ import {
 } from "lucide-react";
 import { useStore } from "@/lib/store";
 import { cn, isLowStock } from "@/lib/utils";
+import { applyTheme, getTheme } from "@/lib/theme";
 import { Avatar } from "./ui";
 
 const GROUPS = [
@@ -66,6 +67,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
   const owner = data.settings.ownerName?.trim() || "Shop owner";
 
   useEffect(() => setOpen(false), [path]);
+  useEffect(() => applyTheme(getTheme()), []);
 
   const isActive = (href: string) => (href === "/" ? path === "/" : path.startsWith(href));
 

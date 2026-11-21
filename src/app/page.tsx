@@ -177,7 +177,7 @@ export default function Dashboard() {
             </span>
             <span className="min-w-0">
               <span className="block font-bold leading-tight">{q.label}</span>
-              <span className={`hidden text-xs sm:block ${q.primary ? "text-white/80" : "text-muted"}`}>{q.sub}</span>
+              <span className={`hidden text-xs sm:block ${q.primary ? "text-white/95" : "text-muted"}`}>{q.sub}</span>
             </span>
           </Link>
         ))}

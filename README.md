@@ -40,6 +40,10 @@ It is designed for phones first, since that's where it gets used most.
 - Tested at 320, 360, 390, 768, 1024, 1280 and 1920px wide. No page is ever wider than the screen.
 - To use it like an app on a phone, open it in the browser and choose "Add to Home Screen".
 
+**Colours:** five colour schemes (Indigo is the default; Terracotta, Teal, Royal maroon, Navy) can be picked in
+**Settings → Colours**, saved per device. The colours live as CSS variables in `src/app/globals.css`;
+the list for the picker is in `src/lib/theme.ts`.
+
 ## What's in it
 
 New to it? Open **Help** in the menu. It explains the three everyday jobs in plain words.

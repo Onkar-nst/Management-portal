@@ -45,6 +45,7 @@ const FAQ: { q: string; a: React.ReactNode }[] = [
   { q: "I placed an order but the goods haven't come yet", a: <>Open <b>Deliveries</b>, press <b>Order stock</b> and choose <i>I&apos;ve ordered it, it hasn&apos;t come yet</i>. When the goods come, open the order and press <b>Goods arrived</b>. You can also record part of a delivery.</> },
   { q: "We don't sell a product any more", a: <>Open it and press <b>Archive</b>. It disappears from the sale screen and stock list but its old sales stay in your reports. You can restore it any time.</> },
   { q: "A product now comes in a new size", a: <>Open the product, press <b>Edit</b> and use <b>Add size</b>. Then record the new pieces with <b>Stock arrived</b> or <b>Adjust stock</b>.</> },
+  { q: "Can I change the colours?", a: <>Yes. Open <b>Settings</b> and pick a scheme under <b>Colours</b>: Indigo, Terracotta, Teal, Royal maroon or Navy. It changes straight away and is remembered on that phone or computer.</> },
   { q: "How do I keep my data safe?", a: <>In <b>Settings</b>, press <b>Download backup</b> now and then. If anything goes wrong, use <b>Restore backup</b> with that file. <b>Check my data</b> makes sure every number adds up.</> },
 ];
 
